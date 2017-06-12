@@ -134,7 +134,11 @@
     <Compile Include="Business\Domain\Repositories\SerieRepository.cs" />
     <Compile Include="Business\Domain\Repositories\SerieSchauspielerRepository.cs" />
     <Compile Include="Business\Domain\UnitOfWork.cs" />
+    <Compile Include="Controllers\FilmController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProduzentController.cs" />
+    <Compile Include="Controllers\SchauspielerController.cs" />
+    <Compile Include="Controllers\SerieController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -231,6 +235,26 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Film\Create.cshtml" />
+    <Content Include="Views\Film\Delete.cshtml" />
+    <Content Include="Views\Film\Details.cshtml" />
+    <Content Include="Views\Film\Edit.cshtml" />
+    <Content Include="Views\Film\Index.cshtml" />
+    <Content Include="Views\Produzent\Create.cshtml" />
+    <Content Include="Views\Produzent\Delete.cshtml" />
+    <Content Include="Views\Produzent\Details.cshtml" />
+    <Content Include="Views\Produzent\Edit.cshtml" />
+    <Content Include="Views\Produzent\Index.cshtml" />
+    <Content Include="Views\Schauspieler\Create.cshtml" />
+    <Content Include="Views\Schauspieler\Delete.cshtml" />
+    <Content Include="Views\Schauspieler\Details.cshtml" />
+    <Content Include="Views\Schauspieler\Edit.cshtml" />
+    <Content Include="Views\Schauspieler\Index.cshtml" />
+    <Content Include="Views\Serie\Create.cshtml" />
+    <Content Include="Views\Serie\Delete.cshtml" />
+    <Content Include="Views\Serie\Details.cshtml" />
+    <Content Include="Views\Serie\Edit.cshtml" />
+    <Content Include="Views\Serie\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

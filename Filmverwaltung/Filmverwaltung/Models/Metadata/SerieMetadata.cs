@@ -13,12 +13,15 @@ namespace Filmverwaltung.Models.Metadata
 		public string Genre { get; set; }
 
 		[Required]
+		[Display(Name = "Anz. Staffeln")]
 		public int AnzStaffeln { get; set; }
 
 		[Required]
+		[Display(Name = "Anz. Episoden")]
 		public int AnzEpisoden { get; set; }
 
 		[Required]
+		[Display(Name = "Produzent")]
 		public int ProduzentId { get; set; }
 	}
 }
