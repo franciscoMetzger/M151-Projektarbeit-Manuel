@@ -1,0 +1,432 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FilmverwaltungModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Film">
+          <Key>
+            <PropertyRef Name="ID_Film" />
+          </Key>
+          <Property Name="ID_Film" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Genre" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Laenge" Type="int" />
+          <Property Name="ProduzentId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FilmSchauspieler">
+          <Key>
+            <PropertyRef Name="ID_FilmSchauspieler" />
+          </Key>
+          <Property Name="ID_FilmSchauspieler" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FilmId" Type="int" Nullable="false" />
+          <Property Name="SchauspielerId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Produzent">
+          <Key>
+            <PropertyRef Name="ID_Produzent" />
+          </Key>
+          <Property Name="ID_Produzent" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Vorname" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Nachname" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Firma" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Schauspieler">
+          <Key>
+            <PropertyRef Name="ID_Schauspieler" />
+          </Key>
+          <Property Name="ID_Schauspieler" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Vorname" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="VermittlungsAgentur" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Serie">
+          <Key>
+            <PropertyRef Name="ID_Serie" />
+          </Key>
+          <Property Name="ID_Serie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Genre" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="AnzStaffeln" Type="int" Nullable="false" />
+          <Property Name="AnzEpisoden" Type="int" Nullable="false" />
+          <Property Name="ProduzentId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SerieSchauspieler">
+          <Key>
+            <PropertyRef Name="ID_SerieSchauspieler" />
+          </Key>
+          <Property Name="ID_SerieSchauspieler" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SerieId" Type="int" Nullable="false" />
+          <Property Name="SchauspielerId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Film__ProduzentI__1273C1CD">
+          <End Role="Produzent" Type="Self.Produzent" Multiplicity="1" />
+          <End Role="Film" Type="Self.Film" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produzent">
+              <PropertyRef Name="ID_Produzent" />
+            </Principal>
+            <Dependent Role="Film">
+              <PropertyRef Name="ProduzentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FilmSchau__FilmI__1A14E395">
+          <End Role="Film" Type="Self.Film" Multiplicity="1" />
+          <End Role="FilmSchauspieler" Type="Self.FilmSchauspieler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Film">
+              <PropertyRef Name="ID_Film" />
+            </Principal>
+            <Dependent Role="FilmSchauspieler">
+              <PropertyRef Name="FilmId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FilmSchau__Schau__1B0907CE">
+          <End Role="Schauspieler" Type="Self.Schauspieler" Multiplicity="1" />
+          <End Role="FilmSchauspieler" Type="Self.FilmSchauspieler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schauspieler">
+              <PropertyRef Name="ID_Schauspieler" />
+            </Principal>
+            <Dependent Role="FilmSchauspieler">
+              <PropertyRef Name="SchauspielerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Serie__Produzent__21B6055D">
+          <End Role="Produzent" Type="Self.Produzent" Multiplicity="1" />
+          <End Role="Serie" Type="Self.Serie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produzent">
+              <PropertyRef Name="ID_Produzent" />
+            </Principal>
+            <Dependent Role="Serie">
+              <PropertyRef Name="ProduzentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SerieScha__Schau__25869641">
+          <End Role="Schauspieler" Type="Self.Schauspieler" Multiplicity="1" />
+          <End Role="SerieSchauspieler" Type="Self.SerieSchauspieler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schauspieler">
+              <PropertyRef Name="ID_Schauspieler" />
+            </Principal>
+            <Dependent Role="SerieSchauspieler">
+              <PropertyRef Name="SchauspielerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SerieScha__Serie__24927208">
+          <End Role="Serie" Type="Self.Serie" Multiplicity="1" />
+          <End Role="SerieSchauspieler" Type="Self.SerieSchauspieler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Serie">
+              <PropertyRef Name="ID_Serie" />
+            </Principal>
+            <Dependent Role="SerieSchauspieler">
+              <PropertyRef Name="SerieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FilmverwaltungModelStoreContainer">
+          <EntitySet Name="Film" EntityType="Self.Film" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FilmSchauspieler" EntityType="Self.FilmSchauspieler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Produzent" EntityType="Self.Produzent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Schauspieler" EntityType="Self.Schauspieler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Serie" EntityType="Self.Serie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SerieSchauspieler" EntityType="Self.SerieSchauspieler" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Film__ProduzentI__1273C1CD" Association="Self.FK__Film__ProduzentI__1273C1CD">
+            <End Role="Produzent" EntitySet="Produzent" />
+            <End Role="Film" EntitySet="Film" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FilmSchau__FilmI__1A14E395" Association="Self.FK__FilmSchau__FilmI__1A14E395">
+            <End Role="Film" EntitySet="Film" />
+            <End Role="FilmSchauspieler" EntitySet="FilmSchauspieler" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FilmSchau__Schau__1B0907CE" Association="Self.FK__FilmSchau__Schau__1B0907CE">
+            <End Role="Schauspieler" EntitySet="Schauspieler" />
+            <End Role="FilmSchauspieler" EntitySet="FilmSchauspieler" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Serie__Produzent__21B6055D" Association="Self.FK__Serie__Produzent__21B6055D">
+            <End Role="Produzent" EntitySet="Produzent" />
+            <End Role="Serie" EntitySet="Serie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SerieScha__Schau__25869641" Association="Self.FK__SerieScha__Schau__25869641">
+            <End Role="Schauspieler" EntitySet="Schauspieler" />
+            <End Role="SerieSchauspieler" EntitySet="SerieSchauspieler" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SerieScha__Serie__24927208" Association="Self.FK__SerieScha__Serie__24927208">
+            <End Role="Serie" EntitySet="Serie" />
+            <End Role="SerieSchauspieler" EntitySet="SerieSchauspieler" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FilmverwaltungModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Film">
+          <Key>
+            <PropertyRef Name="ID_Film" />
+          </Key>
+          <Property Name="ID_Film" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Genre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Laenge" Type="Int32" />
+          <Property Name="ProduzentId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Produzent" Relationship="Self.FK__Film__ProduzentI__1273C1CD" FromRole="Film" ToRole="Produzent" />
+          <NavigationProperty Name="FilmSchauspieler" Relationship="Self.FK__FilmSchau__FilmI__1A14E395" FromRole="Film" ToRole="FilmSchauspieler" />
+        </EntityType>
+        <EntityType Name="FilmSchauspieler">
+          <Key>
+            <PropertyRef Name="ID_FilmSchauspieler" />
+          </Key>
+          <Property Name="ID_FilmSchauspieler" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FilmId" Type="Int32" Nullable="false" />
+          <Property Name="SchauspielerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Film" Relationship="Self.FK__FilmSchau__FilmI__1A14E395" FromRole="FilmSchauspieler" ToRole="Film" />
+          <NavigationProperty Name="Schauspieler" Relationship="Self.FK__FilmSchau__Schau__1B0907CE" FromRole="FilmSchauspieler" ToRole="Schauspieler" />
+        </EntityType>
+        <EntityType Name="Produzent">
+          <Key>
+            <PropertyRef Name="ID_Produzent" />
+          </Key>
+          <Property Name="ID_Produzent" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Vorname" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nachname" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Firma" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Film" Relationship="Self.FK__Film__ProduzentI__1273C1CD" FromRole="Produzent" ToRole="Film" />
+          <NavigationProperty Name="Serie" Relationship="FilmverwaltungModel.FK__Serie__Produzent__21B6055D" FromRole="Produzent" ToRole="Serie" />
+        </EntityType>
+        <EntityType Name="Schauspieler">
+          <Key>
+            <PropertyRef Name="ID_Schauspieler" />
+          </Key>
+          <Property Name="ID_Schauspieler" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Vorname" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VermittlungsAgentur" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="FilmSchauspieler" Relationship="Self.FK__FilmSchau__Schau__1B0907CE" FromRole="Schauspieler" ToRole="FilmSchauspieler" />
+          <NavigationProperty Name="SerieSchauspieler" Relationship="Self.FK__SerieScha__Schau__1ED998B2" FromRole="Schauspieler" ToRole="SerieSchauspieler" />
+        </EntityType>
+        <EntityType Name="SerieSchauspieler">
+          <Key>
+            <PropertyRef Name="ID_SerieSchauspieler" />
+          </Key>
+          <Property Name="ID_SerieSchauspieler" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SerieId" Type="Int32" Nullable="false" />
+          <Property Name="SchauspielerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Schauspieler" Relationship="Self.FK__SerieScha__Schau__1ED998B2" FromRole="SerieSchauspieler" ToRole="Schauspieler" />
+          <NavigationProperty Name="Serie" Relationship="FilmverwaltungModel.FK__SerieScha__Serie__24927208" FromRole="SerieSchauspieler" ToRole="Serie" />
+        </EntityType>
+        <Association Name="FK__Film__ProduzentI__1273C1CD">
+          <End Role="Produzent" Type="Self.Produzent" Multiplicity="1" />
+          <End Role="Film" Type="Self.Film" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produzent">
+              <PropertyRef Name="ID_Produzent" />
+            </Principal>
+            <Dependent Role="Film">
+              <PropertyRef Name="ProduzentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FilmSchau__FilmI__1A14E395">
+          <End Role="Film" Type="Self.Film" Multiplicity="1" />
+          <End Role="FilmSchauspieler" Type="Self.FilmSchauspieler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Film">
+              <PropertyRef Name="ID_Film" />
+            </Principal>
+            <Dependent Role="FilmSchauspieler">
+              <PropertyRef Name="FilmId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FilmSchau__Schau__1B0907CE">
+          <End Role="Schauspieler" Type="Self.Schauspieler" Multiplicity="1" />
+          <End Role="FilmSchauspieler" Type="Self.FilmSchauspieler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schauspieler">
+              <PropertyRef Name="ID_Schauspieler" />
+            </Principal>
+            <Dependent Role="FilmSchauspieler">
+              <PropertyRef Name="SchauspielerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SerieScha__Schau__1ED998B2">
+          <End Role="Schauspieler" Type="Self.Schauspieler" Multiplicity="1" />
+          <End Role="SerieSchauspieler" Type="Self.SerieSchauspieler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schauspieler">
+              <PropertyRef Name="ID_Schauspieler" />
+            </Principal>
+            <Dependent Role="SerieSchauspieler">
+              <PropertyRef Name="SchauspielerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FilmverwaltungContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Film" EntityType="Self.Film" />
+          <EntitySet Name="FilmSchauspieler" EntityType="Self.FilmSchauspieler" />
+          <EntitySet Name="Produzent" EntityType="Self.Produzent" />
+          <EntitySet Name="Schauspieler" EntityType="Self.Schauspieler" />
+          <EntitySet Name="SerieSchauspieler" EntityType="Self.SerieSchauspieler" />
+          <AssociationSet Name="FK__Film__ProduzentI__1273C1CD" Association="Self.FK__Film__ProduzentI__1273C1CD">
+            <End Role="Produzent" EntitySet="Produzent" />
+            <End Role="Film" EntitySet="Film" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FilmSchau__FilmI__1A14E395" Association="Self.FK__FilmSchau__FilmI__1A14E395">
+            <End Role="Film" EntitySet="Film" />
+            <End Role="FilmSchauspieler" EntitySet="FilmSchauspieler" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FilmSchau__Schau__1B0907CE" Association="Self.FK__FilmSchau__Schau__1B0907CE">
+            <End Role="Schauspieler" EntitySet="Schauspieler" />
+            <End Role="FilmSchauspieler" EntitySet="FilmSchauspieler" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SerieScha__Schau__1ED998B2" Association="Self.FK__SerieScha__Schau__1ED998B2">
+            <End Role="Schauspieler" EntitySet="Schauspieler" />
+            <End Role="SerieSchauspieler" EntitySet="SerieSchauspieler" />
+          </AssociationSet>
+          <EntitySet Name="Serie" EntityType="FilmverwaltungModel.Serie" />
+          <AssociationSet Name="FK__Serie__Produzent__21B6055D" Association="FilmverwaltungModel.FK__Serie__Produzent__21B6055D">
+            <End Role="Produzent" EntitySet="Produzent" />
+            <End Role="Serie" EntitySet="Serie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SerieScha__Serie__24927208" Association="FilmverwaltungModel.FK__SerieScha__Serie__24927208">
+            <End Role="Serie" EntitySet="Serie" />
+            <End Role="SerieSchauspieler" EntitySet="SerieSchauspieler" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Serie">
+          <Key>
+            <PropertyRef Name="ID_Serie" />
+          </Key>
+          <Property Name="ID_Serie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Genre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="AnzStaffeln" Type="Int32" Nullable="false" />
+          <Property Name="AnzEpisoden" Type="Int32" Nullable="false" />
+          <Property Name="ProduzentId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Produzent" Relationship="FilmverwaltungModel.FK__Serie__Produzent__21B6055D" FromRole="Serie" ToRole="Produzent" />
+          <NavigationProperty Name="SerieSchauspieler" Relationship="FilmverwaltungModel.FK__SerieScha__Serie__24927208" FromRole="Serie" ToRole="SerieSchauspieler" />
+        </EntityType>
+        <Association Name="FK__Serie__Produzent__21B6055D">
+          <End Type="FilmverwaltungModel.Produzent" Role="Produzent" Multiplicity="1" />
+          <End Type="FilmverwaltungModel.Serie" Role="Serie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produzent">
+              <PropertyRef Name="ID_Produzent" />
+            </Principal>
+            <Dependent Role="Serie">
+              <PropertyRef Name="ProduzentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SerieScha__Serie__24927208">
+          <End Type="FilmverwaltungModel.Serie" Role="Serie" Multiplicity="1" />
+          <End Type="FilmverwaltungModel.SerieSchauspieler" Role="SerieSchauspieler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Serie">
+              <PropertyRef Name="ID_Serie" />
+            </Principal>
+            <Dependent Role="SerieSchauspieler">
+              <PropertyRef Name="SerieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FilmverwaltungModelStoreContainer" CdmEntityContainer="FilmverwaltungContext">
+          <EntitySetMapping Name="Film">
+            <EntityTypeMapping TypeName="FilmverwaltungModel.Film">
+              <MappingFragment StoreEntitySet="Film">
+                <ScalarProperty Name="ID_Film" ColumnName="ID_Film" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Genre" ColumnName="Genre" />
+                <ScalarProperty Name="Laenge" ColumnName="Laenge" />
+                <ScalarProperty Name="ProduzentId" ColumnName="ProduzentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FilmSchauspieler">
+            <EntityTypeMapping TypeName="FilmverwaltungModel.FilmSchauspieler">
+              <MappingFragment StoreEntitySet="FilmSchauspieler">
+                <ScalarProperty Name="ID_FilmSchauspieler" ColumnName="ID_FilmSchauspieler" />
+                <ScalarProperty Name="FilmId" ColumnName="FilmId" />
+                <ScalarProperty Name="SchauspielerId" ColumnName="SchauspielerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Produzent">
+            <EntityTypeMapping TypeName="FilmverwaltungModel.Produzent">
+              <MappingFragment StoreEntitySet="Produzent">
+                <ScalarProperty Name="ID_Produzent" ColumnName="ID_Produzent" />
+                <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+                <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+                <ScalarProperty Name="Firma" ColumnName="Firma" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schauspieler">
+            <EntityTypeMapping TypeName="FilmverwaltungModel.Schauspieler">
+              <MappingFragment StoreEntitySet="Schauspieler">
+                <ScalarProperty Name="ID_Schauspieler" ColumnName="ID_Schauspieler" />
+                <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="VermittlungsAgentur" ColumnName="VermittlungsAgentur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SerieSchauspieler">
+            <EntityTypeMapping TypeName="FilmverwaltungModel.SerieSchauspieler">
+              <MappingFragment StoreEntitySet="SerieSchauspieler">
+                <ScalarProperty Name="ID_SerieSchauspieler" ColumnName="ID_SerieSchauspieler" />
+                <ScalarProperty Name="SerieId" ColumnName="SerieId" />
+                <ScalarProperty Name="SchauspielerId" ColumnName="SchauspielerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Serie">
+            <EntityTypeMapping TypeName="FilmverwaltungModel.Serie">
+              <MappingFragment StoreEntitySet="Serie">
+                <ScalarProperty Name="ProduzentId" ColumnName="ProduzentId" />
+                <ScalarProperty Name="AnzEpisoden" ColumnName="AnzEpisoden" />
+                <ScalarProperty Name="AnzStaffeln" ColumnName="AnzStaffeln" />
+                <ScalarProperty Name="Genre" ColumnName="Genre" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID_Serie" ColumnName="ID_Serie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
