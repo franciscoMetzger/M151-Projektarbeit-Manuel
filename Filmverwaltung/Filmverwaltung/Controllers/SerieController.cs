@@ -41,6 +41,9 @@ namespace Filmverwaltung.Controllers
 			{
 				return HttpNotFound();
 			}
+
+			ViewBag.FilmSchauspieler = serie.SerieSchauspieler.Select(x => x.Schauspieler).Distinct().ToList();
+
 			return View(serie);
 		}
 
@@ -48,6 +51,8 @@ namespace Filmverwaltung.Controllers
 		public ActionResult Create()
 		{
 			ViewBag.ProduzentId = new SelectList(_produzenten, "ID_Produzent", "FullName");
+			ViewBag.Schauspieler = _unitOfWork.Schauspieler.LoadAll().ToList();
+
 			return View();
 		}
 
@@ -55,11 +60,15 @@ namespace Filmverwaltung.Controllers
 		// Aktivieren Sie zum Schutz vor übermäßigem Senden von Angriffen die spezifischen Eigenschaften, mit denen eine Bindung erfolgen soll. Weitere Informationen 
 		// finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult Create([Bind(Include = "ID_Serie,Name,Genre,AnzStaffeln,AnzEpisoden,ProduzentId")] Serie serie)
+		public ActionResult Create(Serie serie)
 		{
 			if (ModelState.IsValid)
 			{
+				foreach (var schauspieler in serie.Schauspieler)
+				{
+					serie.SerieSchauspieler.Add(new SerieSchauspieler() { SerieId = serie.ID_Serie, SchauspielerId = schauspieler });
+				}
+
 				_unitOfWork.Serie.Insert(serie);
 				_unitOfWork.SaveChanges();
 				return RedirectToAction("Index");
@@ -82,6 +91,8 @@ namespace Filmverwaltung.Controllers
 				return HttpNotFound();
 			}
 			ViewBag.ProduzentId = new SelectList(_produzenten, "ID_Produzent", "FullName", serie.ProduzentId);
+			ViewBag.Schauspieler = _unitOfWork.Schauspieler.LoadAll().ToList();
+
 			return View(serie);
 		}
 
@@ -89,11 +100,26 @@ namespace Filmverwaltung.Controllers
 		// Aktivieren Sie zum Schutz vor übermäßigem Senden von Angriffen die spezifischen Eigenschaften, mit denen eine Bindung erfolgen soll. Weitere Informationen 
 		// finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult Edit([Bind(Include = "ID_Serie,Name,Genre,AnzStaffeln,AnzEpisoden,ProduzentId")] Serie serie)
+		public ActionResult Edit(Serie serie)
 		{
 			if (ModelState.IsValid)
 			{
+				foreach (var id in serie.Schauspieler)
+				{
+					var existing = serie.SerieSchauspieler.FirstOrDefault(x => x.SchauspielerId == id);
+					if (existing != null)
+					{
+						_unitOfWork.SerieSchauspieler.Delete(existing);
+						serie.SerieSchauspieler.Remove(existing);
+					}
+					else
+					{
+						var newItem = new SerieSchauspieler() { SerieId = serie.ID_Serie, SchauspielerId = id };
+						_unitOfWork.SerieSchauspieler.Insert(newItem);
+						serie.SerieSchauspieler.Add(newItem);
+					}
+				}
+
 				_unitOfWork.Serie.Update(serie);
 				_unitOfWork.SaveChanges();
 				return RedirectToAction("Index");

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Filmverwaltung.Models.Metadata
@@ -23,5 +24,8 @@ namespace Filmverwaltung.Models.Metadata
 		[Required]
 		[Display(Name = "Produzent")]
 		public int ProduzentId { get; set; }
+
+		[Required]
+		public ICollection<SerieSchauspieler> SerieSchauspieler { get; set; }
 	}
 }

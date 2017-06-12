@@ -1,4 +1,5 @@
-﻿@model Filmverwaltung.Models.Serie
+﻿@using Filmverwaltung.Models
+@model Filmverwaltung.Models.Serie
 
 @{
     ViewBag.Title = "Details";
@@ -46,9 +47,23 @@
             @Html.DisplayNameFor(model => model.Produzent.Vorname)
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Produzent.Vorname)
-        </dd>
+	    <dd>
+		    @Html.DisplayFor(model => model.Produzent.Vorname)
+	    </dd>
+
+			<dt>
+			<label>Schauspieler</label>
+			</dt>
+			<dd>
+				<ul>
+					@foreach (Schauspieler schauspieler in ViewBag.FilmSchauspieler)
+					{
+						<li>
+							@(schauspieler.FullName)
+						</li>
+					}
+				</ul>
+			</dd>
 
     </dl>
 </div>

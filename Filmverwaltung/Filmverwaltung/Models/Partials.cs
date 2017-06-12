@@ -26,6 +26,6 @@ namespace Filmverwaltung.Models
 	[MetadataType(typeof(SerieMetadata))]
 	public partial class Serie
 	{
-
+		public IEnumerable<int> Schauspieler { get; set; }
 	}
 }

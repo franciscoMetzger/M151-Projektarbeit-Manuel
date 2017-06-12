@@ -42,7 +42,7 @@ namespace Filmverwaltung.Controllers
 				return HttpNotFound();
 			}
 
-			ViewBag.FilmSchauspieler = film.FilmSchauspieler.Select(x => x.Schauspieler).ToList();
+			ViewBag.FilmSchauspieler = film.FilmSchauspieler.Select(x => x.Schauspieler).Distinct().ToList();
 
 			return View(film);
 		}
@@ -98,8 +98,6 @@ namespace Filmverwaltung.Controllers
 		}
 
 		// POST: Film/Edit/5
-		// Aktivieren Sie zum Schutz vor übermäßigem Senden von Angriffen die spezifischen Eigenschaften, mit denen eine Bindung erfolgen soll. Weitere Informationen 
-		// finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		public ActionResult Edit(Film film)
 		{
