@@ -21,7 +21,7 @@
             @Html.DisplayNameFor(model => model.Laenge)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Produzent.Vorname)
+           <label>Produzent</label>
         </th>
         <th></th>
     </tr>
@@ -38,7 +38,7 @@
             @Html.DisplayFor(modelItem => item.Laenge)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Produzent.Vorname)
+            @Html.DisplayFor(modelItem => item.Produzent.FullName)
         </td>
         <td>
             @Html.ActionLink("Editieren", "Edit", new { id=item.ID_Film }) |

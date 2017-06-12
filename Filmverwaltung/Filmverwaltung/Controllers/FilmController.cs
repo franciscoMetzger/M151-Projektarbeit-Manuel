@@ -47,7 +47,7 @@ namespace Filmverwaltung.Controllers
 		// GET: Film/Create
 		public ActionResult Create()
 		{
-			ViewBag.ProduzentId = new SelectList(_produzenten, "ID_Produzent", "Vorname");
+			ViewBag.ProduzentId = new SelectList(_produzenten, "ID_Produzent", "FullName");
 			return View();
 		}
 
@@ -65,7 +65,7 @@ namespace Filmverwaltung.Controllers
 				return RedirectToAction("Index");
 			}
 
-			ViewBag.ProduzentId = new SelectList(_produzenten, "ID_Produzent", "Vorname", film.ProduzentId);
+			ViewBag.ProduzentId = new SelectList(_produzenten, "ID_Produzent", "FullName", film.ProduzentId);
 			return View(film);
 		}
 
@@ -81,7 +81,7 @@ namespace Filmverwaltung.Controllers
 			{
 				return HttpNotFound();
 			}
-			ViewBag.ProduzentId = new SelectList(_produzenten, "ID_Produzent", "Vorname", film.ProduzentId);
+			ViewBag.ProduzentId = new SelectList(_produzenten, "ID_Produzent", "FullName", film.ProduzentId);
 			return View(film);
 		}
 
@@ -98,7 +98,7 @@ namespace Filmverwaltung.Controllers
 				_unitOfWork.SaveChanges();
 				return RedirectToAction("Index");
 			}
-			ViewBag.ProduzentId = new SelectList(_produzenten, "ID_Produzent", "Vorname", film.ProduzentId);
+			ViewBag.ProduzentId = new SelectList(_produzenten, "ID_Produzent", "FullName", film.ProduzentId);
 			return View(film);
 		}
 

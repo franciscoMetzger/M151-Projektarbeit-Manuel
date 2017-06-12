@@ -24,7 +24,7 @@
             @Html.DisplayNameFor(model => model.AnzEpisoden)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Produzent.Vorname)
+            <label>Produzent</label>
         </th>
         <th></th>
     </tr>
@@ -44,7 +44,7 @@
             @Html.DisplayFor(modelItem => item.AnzEpisoden)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Produzent.Vorname)
+            @Html.DisplayFor(modelItem => item.Produzent.FullName)
         </td>
         <td>
             @Html.ActionLink("Editieren", "Edit", new { id=item.ID_Serie }) |
