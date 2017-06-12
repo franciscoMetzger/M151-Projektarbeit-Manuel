@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Filmverwaltung.Models.Serie>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Serien";
 }
 
-<h2>Index</h2>
+<h2>Serien</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Neue Serie", "Create")
 </p>
 <table class="table">
     <tr>
@@ -18,7 +18,10 @@
             @Html.DisplayNameFor(model => model.Genre)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Laenge)
+            @Html.DisplayNameFor(model => model.AnzStaffeln)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AnzEpisoden)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Produzent.Vorname)
@@ -35,15 +38,18 @@
             @Html.DisplayFor(modelItem => item.Genre)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Laenge)
+            @Html.DisplayFor(modelItem => item.AnzStaffeln)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AnzEpisoden)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Produzent.Vorname)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID_Serie }) |
+            @Html.ActionLink("Editieren", "Edit", new { id=item.ID_Serie }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID_Serie }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID_Serie })
+            @Html.ActionLink("Löschen", "Delete", new { id=item.ID_Serie })
         </td>
     </tr>
 }

@@ -1,12 +1,12 @@
 ﻿@model Filmverwaltung.Models.Schauspieler
 
 @{
-    ViewBag.Title = "Delete";
+	ViewBag.Title = "Schauspieler löschen";
 }
 
-<h2>Delete</h2>
+<h2>Löschen</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Sind Sie sicher das sie diesen Schauspieler löschen wollen?</h3>
 <div>
     <h4>Schauspieler</h4>
     <hr />
@@ -41,8 +41,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Löschen" class="btn btn-default" /> |
+            @Html.ActionLink("Zurück", "Index")
         </div>
     }
 </div>

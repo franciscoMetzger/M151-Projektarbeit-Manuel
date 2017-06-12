@@ -27,11 +27,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Laenge)
+            @Html.DisplayNameFor(model => model.AnzStaffeln)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Laenge)
+            @Html.DisplayFor(model => model.AnzStaffeln)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AnzEpisoden)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnzEpisoden)
         </dd>
 
         <dt>
@@ -45,6 +53,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_Serie }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editieren", "Edit", new { id = Model.ID_Serie }) |
+    @Html.ActionLink("Zurück", "Index")
 </p>

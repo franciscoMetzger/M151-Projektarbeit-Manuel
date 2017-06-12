@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Filmverwaltung.Models.Schauspieler>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Schauspieler";
 }
 
-<h2>Index</h2>
+<h2>Schauspieler</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Neuer Schauspieler", "Create")
 </p>
 <table class="table">
     <tr>
@@ -35,9 +35,9 @@
             @Html.DisplayFor(modelItem => item.VermittlungsAgentur)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID_Schauspieler }) |
+            @Html.ActionLink("Editieren", "Edit", new { id=item.ID_Schauspieler }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID_Schauspieler }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID_Schauspieler })
+            @Html.ActionLink("Löschen", "Delete", new { id=item.ID_Schauspieler })
         </td>
     </tr>
 }

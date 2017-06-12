@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.Mvc;
 using Filmverwaltung.Business.Domain;
@@ -55,7 +56,7 @@ namespace Filmverwaltung.Controllers
 		// finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Create([Bind(Include = "ID_Serie,Name,Genre,Laenge,ProduzentId")] Serie serie)
+		public ActionResult Create([Bind(Include = "ID_Serie,Name,Genre,AnzStaffeln,AnzEpisoden,ProduzentId")] Serie serie)
 		{
 			if (ModelState.IsValid)
 			{
@@ -89,7 +90,7 @@ namespace Filmverwaltung.Controllers
 		// finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Edit([Bind(Include = "ID_Serie,Name,Genre,Laenge,ProduzentId")] Serie serie)
+		public ActionResult Edit([Bind(Include = "ID_Serie,Name,Genre,AnzStaffeln,AnzEpisoden,ProduzentId")] Serie serie)
 		{
 			if (ModelState.IsValid)
 			{

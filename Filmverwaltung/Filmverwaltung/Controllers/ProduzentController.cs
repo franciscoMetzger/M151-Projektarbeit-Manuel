@@ -13,7 +13,7 @@ namespace Filmverwaltung.Controllers
 {
 	public class ProduzentController : Controller
 	{
-		private IUnitOfWork _unitOfWork;
+		private readonly IUnitOfWork _unitOfWork;
 
 		public ProduzentController()
 		{
