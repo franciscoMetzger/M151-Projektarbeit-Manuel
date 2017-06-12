@@ -8,7 +8,8 @@ namespace Filmverwaltung.Business.Domain
 		IFilmRepository Film { get; }
 		ISerieRepository Serie { get; }
 		IProduzentRepository Produzent { get; }
-		ISchauspielerRepository Schauspieler{ get; }
+		ISchauspielerRepository Schauspieler { get; }
+		IFilmSchauspielerRepository FilmSchauspieler { get; }
 		void SaveChanges();
 	}
 }

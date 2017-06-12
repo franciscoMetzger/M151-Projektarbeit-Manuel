@@ -16,12 +16,14 @@ namespace Filmverwaltung.Business.Domain
 			Serie = new SerieRepository(context);
 			Produzent = new ProduzentRepository(context);
 			Schauspieler = new SchauspielerRepository(context);
+			FilmSchauspieler = new FilmSchauspielerRepository(context);
 		}
 
 		public IFilmRepository Film { get; private set; }
 		public ISerieRepository Serie { get; private set; }
 		public IProduzentRepository Produzent { get; private set; }
 		public ISchauspielerRepository Schauspieler { get; private set; }
+		public IFilmSchauspielerRepository FilmSchauspieler { get; private set; }
 
 		public void SaveChanges()
 		{
