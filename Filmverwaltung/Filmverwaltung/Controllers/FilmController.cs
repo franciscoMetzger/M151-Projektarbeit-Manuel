@@ -47,7 +47,7 @@ namespace Filmverwaltung.Controllers
 		// GET: Film/Create
 		public ActionResult Create()
 		{
-			ViewBag.ProduzentId = _produzenten;
+			ViewBag.ProduzentId = new SelectList(_produzenten, "ID_Produzent", "Vorname");
 			return View();
 		}
 
