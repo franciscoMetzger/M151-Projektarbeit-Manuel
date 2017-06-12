@@ -1,50 +1,64 @@
-﻿@model Filmverwaltung.Models.Film
+﻿@using Filmverwaltung.Models
+@model Filmverwaltung.Models.Film
 
 @{
-    ViewBag.Title = "Details";
+	ViewBag.Title = "Details";
 }
 
 <h2>Details</h2>
 
 <div>
-    <h4>Film</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+	<h4>Film</h4>
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayNameFor(model => model.Name)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.Name)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Genre)
-        </dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.Genre)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Genre)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.Genre)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Laenge)
-        </dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.Laenge)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Laenge)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.Laenge)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Produzent.Vorname)
-        </dt>
+		<dt>
+			<label>Produzent</label>
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Produzent.Vorname)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.Produzent.Vorname)
+		</dd>
 
-    </dl>
+		<dt>
+			<label>Schauspieler</label>
+		</dt>
+		<dd>
+			<ul >
+				@foreach (Schauspieler schauspieler in ViewBag.FilmSchauspieler)
+				{
+					<li>
+						@(schauspieler.FullName)
+					</li>
+				}
+			</ul>
+		</dd>
+	</dl>
 </div>
 <p>
-    @Html.ActionLink("Editieren", "Edit", new { id = Model.ID_Film }) |
-    @Html.ActionLink("Zurück", "Index")
+	@Html.ActionLink("Editieren", "Edit", new { id = Model.ID_Film }) |
+	@Html.ActionLink("Zurück", "Index")
 </p>

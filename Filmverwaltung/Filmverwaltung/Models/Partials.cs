@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Filmverwaltung.Models.Metadata;
 
 namespace Filmverwaltung.Models
@@ -6,7 +8,7 @@ namespace Filmverwaltung.Models
 	[MetadataType(typeof(FilmMetadata))]
 	public partial class Film
 	{
-
+		public IEnumerable<int> Schauspieler { get; set; }
 	}
 
 	[MetadataType(typeof(ProduzentMetadata))]

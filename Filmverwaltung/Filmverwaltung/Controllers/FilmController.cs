@@ -41,6 +41,9 @@ namespace Filmverwaltung.Controllers
 			{
 				return HttpNotFound();
 			}
+
+			ViewBag.FilmSchauspieler = film.FilmSchauspieler.Select(x => x.Schauspieler).ToList();
+
 			return View(film);
 		}
 
@@ -48,6 +51,8 @@ namespace Filmverwaltung.Controllers
 		public ActionResult Create()
 		{
 			ViewBag.ProduzentId = new SelectList(_produzenten, "ID_Produzent", "FullName");
+			ViewBag.Schauspieler = _unitOfWork.Schauspieler.LoadAll().ToList();
+
 			return View();
 		}
 
@@ -55,11 +60,15 @@ namespace Filmverwaltung.Controllers
 		// Aktivieren Sie zum Schutz vor übermäßigem Senden von Angriffen die spezifischen Eigenschaften, mit denen eine Bindung erfolgen soll. Weitere Informationen 
 		// finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult Create([Bind(Include = "ID_Film,Name,Genre,Laenge,ProduzentId")] Film film)
+		public ActionResult Create(Film film)
 		{
 			if (ModelState.IsValid)
 			{
+				foreach (var schauspieler in film.Schauspieler)
+				{
+					film.FilmSchauspieler.Add(new FilmSchauspieler { FilmId = film.ID_Film, SchauspielerId = schauspieler });
+				}
+
 				_unitOfWork.Film.Insert(film);
 				_unitOfWork.SaveChanges();
 				return RedirectToAction("Index");
