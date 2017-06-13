@@ -23,8 +23,6 @@ CREATE TABLE Schauspieler(
 	VermittlungsAgentur	VARCHAR(200)
 );
 
-drop table Serie
-
 CREATE TABLE Serie(
 	ID_Serie		INT	PRIMARY KEY IDENTITY(1,1),
 	Name			VARCHAR(200) NOT NULL,

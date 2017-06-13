@@ -64,9 +64,12 @@ namespace Filmverwaltung.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				foreach (var schauspieler in serie.Schauspieler)
+				if (serie.Schauspieler != null)
 				{
-					serie.SerieSchauspieler.Add(new SerieSchauspieler() { SerieId = serie.ID_Serie, SchauspielerId = schauspieler });
+					foreach (var schauspieler in serie.Schauspieler)
+					{
+						serie.SerieSchauspieler.Add(new SerieSchauspieler() { SerieId = serie.ID_Serie, SchauspielerId = schauspieler });
+					}
 				}
 
 				_unitOfWork.Serie.Insert(serie);
