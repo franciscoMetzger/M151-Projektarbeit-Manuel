@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Filmverwaltung.Business.Domain;
 using Filmverwaltung.Models;
+using WebGrease.Css.Extensions;
 
 namespace Filmverwaltung.Controllers
 {
@@ -107,19 +108,32 @@ namespace Filmverwaltung.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				foreach (var id in serie.Schauspieler)
+				var existingSerieSchauspieler = _unitOfWork.SerieSchauspieler.LoadBySerie(serie.ID_Serie).ToList();
+				if (serie.Schauspieler != null)
 				{
-					var existing = serie.SerieSchauspieler.FirstOrDefault(x => x.SchauspielerId == id);
-					if (existing != null)
+					foreach (var serieSchauspieler in existingSerieSchauspieler)
 					{
-						_unitOfWork.SerieSchauspieler.Delete(existing);
-						serie.SerieSchauspieler.Remove(existing);
+						if (serie.Schauspieler.Contains(serieSchauspieler.SchauspielerId) == false)
+						{
+							_unitOfWork.SerieSchauspieler.Delete(serieSchauspieler);
+						}
 					}
-					else
+					foreach (var id in serie.Schauspieler)
 					{
-						var newItem = new SerieSchauspieler() { SerieId = serie.ID_Serie, SchauspielerId = id };
-						_unitOfWork.SerieSchauspieler.Insert(newItem);
-						serie.SerieSchauspieler.Add(newItem);
+						if (existingSerieSchauspieler.Any(x => x.SchauspielerId == id) == false)
+						{
+							var newItem = new SerieSchauspieler() { SerieId = serie.ID_Serie, SchauspielerId = id };
+							_unitOfWork.SerieSchauspieler.Insert(newItem);
+							serie.SerieSchauspieler.Add(newItem);
+						}
+					}
+				}
+				else
+				{
+					serie.SerieSchauspieler.Clear();
+					foreach (var serieSchauspieler in existingSerieSchauspieler)
+					{
+						_unitOfWork.SerieSchauspieler.Delete(serieSchauspieler);
 					}
 				}
 
@@ -151,6 +165,12 @@ namespace Filmverwaltung.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult DeleteConfirmed(int id)
 		{
+			var existingRelations = _unitOfWork.SerieSchauspieler.LoadBySerie(id).ToList();
+			foreach (var serieSchauspieler in existingRelations)
+			{
+				_unitOfWork.SerieSchauspieler.Delete(serieSchauspieler);
+			}
+
 			Serie serie = _unitOfWork.Serie.Load(id);
 			_unitOfWork.Serie.Delete(serie);
 			_unitOfWork.SaveChanges();

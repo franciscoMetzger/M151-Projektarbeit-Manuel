@@ -103,19 +103,33 @@ namespace Filmverwaltung.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				foreach (var id in film.Schauspieler)
+				var existingFilmSchauspieler = _unitOfWork.FilmSchauspieler.LoadByFilm(film.ID_Film).ToList();
+				if (film.Schauspieler != null)
 				{
-					var existing = film.FilmSchauspieler.FirstOrDefault(x => x.SchauspielerId == id);
-					if (existing != null)
+					foreach (var filmSchauspieler in existingFilmSchauspieler)
 					{
-						_unitOfWork.FilmSchauspieler.Delete(existing);
-						film.FilmSchauspieler.Remove(existing);
+						if (film.Schauspieler.Contains(filmSchauspieler.SchauspielerId) == false)
+						{
+							_unitOfWork.FilmSchauspieler.Delete(filmSchauspieler);
+						}
 					}
-					else
+
+					foreach (var id in film.Schauspieler)
 					{
-						var newItem = new FilmSchauspieler { FilmId = film.ID_Film, SchauspielerId = id };
-						_unitOfWork.FilmSchauspieler.Insert(newItem);
-						film.FilmSchauspieler.Add(newItem);
+						if (existingFilmSchauspieler.Any(x => x.SchauspielerId == id) == false)
+						{
+							var newItem = new FilmSchauspieler { FilmId = film.ID_Film, SchauspielerId = id };
+							_unitOfWork.FilmSchauspieler.Insert(newItem);
+							film.FilmSchauspieler.Add(newItem);
+						}
+					}
+				}
+				else
+				{
+					film.FilmSchauspieler.Clear();
+					foreach (var filmSchauspieler in existingFilmSchauspieler)
+					{
+						_unitOfWork.FilmSchauspieler.Delete(filmSchauspieler);
 					}
 				}
 
@@ -148,6 +162,10 @@ namespace Filmverwaltung.Controllers
 		public ActionResult DeleteConfirmed(int id)
 		{
 			Film film = _unitOfWork.Film.Load(id);
+			foreach (var filmSchauspieler in film.FilmSchauspieler.ToList())
+			{
+				_unitOfWork.FilmSchauspieler.Delete(filmSchauspieler);
+			}
 			_unitOfWork.Film.Delete(film);
 			_unitOfWork.SaveChanges();
 			return RedirectToAction("Index");

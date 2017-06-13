@@ -115,6 +115,13 @@ namespace Filmverwaltung.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult DeleteConfirmed(int id)
 		{
+			var existingFilmSchauspieler = _unitOfWork.FilmSchauspieler.LoadBySchauspieler(id).ToList();
+			existingFilmSchauspieler.ForEach(x => _unitOfWork.FilmSchauspieler.Delete(x));
+
+
+			var existingSerieSchauspieler = _unitOfWork.SerieSchauspieler.LoadBySchauspieler(id).ToList();
+			existingSerieSchauspieler.ForEach(x => _unitOfWork.SerieSchauspieler.Delete(x));
+
 			Schauspieler schauspieler = _unitOfWork.Schauspieler.Load(id);
 			_unitOfWork.Schauspieler.Delete(schauspieler);
 			_unitOfWork.SaveChanges();
